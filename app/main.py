@@ -1,17 +1,17 @@
 def cache(func):
-    cached_values_lst = []
+    cached_dict = {}
 
-    def inner(*args, **kwargs):
+    def inner(*args):
 
-        sub_lst = [*args]
-
-        if sub_lst in cached_values_lst:
+        if args in cached_dict.keys():
             print("Getting from cache")
+
+            return cached_dict[args]
         else:
             print("Calculating new result")
 
-        cached_values_lst.append([*args])
-
-        return func(*args, **kwargs)
+            result = func(*args)
+            cached_dict[args] = result
+            return result
 
     return inner
